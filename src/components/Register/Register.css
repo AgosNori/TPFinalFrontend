@@ -4,7 +4,7 @@
   width: 100%;
   margin: 0 auto;
 padding: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid #000000;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
@@ -17,6 +17,9 @@ form {
 }
 
 
+h3{
+  color: black;
+}
 fieldset {
   border: 1px solid #ccc;
   border-radius: 5px;

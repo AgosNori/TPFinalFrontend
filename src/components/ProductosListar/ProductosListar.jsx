@@ -98,7 +98,7 @@ function ProductosListar() {
           onChange={(e) => setFilter({ ...filter, categoriaSeleccionada: e.target.value })}
         >
           <option value="">Todas las categorías</option>
-          <option value="1">Productos Faciales</option> {/* Debes agregar más opciones según las categorías en tu base de datos */}
+          <option value="1">Productos Faciales</option> 
           <option value="2">Cuidado del pelo</option>
           <option value="3">Maquillaje</option>
           <option value="4">Cuidado del sol</option>
@@ -242,6 +242,129 @@ function ProductosListar() {
             key={producto.id_productos}
             producto={producto}
             addToCart={addToCart}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default ProductosListar;
+/*
+import { useState, useEffect } from "react";
+import './ProductosListar.css';
+import useCart from "../store/useCart";
+import CardProducto from "../Card/CardProductos"; // Asegúrate de importar CardProducto desde la ubicación correcta
+
+function ProductosListar() {
+  const [productos, setProductos] = useState([]);
+  const [filter, setFilter] = useState({ nom_producto: '', precio_producto_min: '', precio_producto_max: '', categorias: '' });
+  const [sortOrder, setSortOrder] = useState('asc');
+
+  // Obtén la función addToCart desde useCart
+  const { addToCart } = useCart();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/products", {
+          method: 'GET',
+          headers: {
+            'Origin': 'http://localhost:5173',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("No se pueden obtener los productos");
+        }
+
+        const data = await response.json();
+        const productosConPreciosCorregidos = data.map((producto) => ({
+          ...producto,
+          precio_producto: parseFloat(producto.precio_producto || 0),
+        }));
+
+        setProductos(productosConPreciosCorregidos);
+      } catch (error) {
+        console.error("Error al obtener productos", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  const productosFiltrados = productos.filter((producto) => {
+    const nameMatch = (producto.nom_producto || "")
+      .toLowerCase()
+      .includes(filter.nom_producto.toLowerCase()) || filter.nom_producto === "";
+    const categoryMatch =
+      (producto.categoria || "").toLowerCase() ===
+      filter.categorias.toLowerCase() || filter.categorias === "";
+
+    // Filtrar por precio mínimo y máximo
+    const priceMin = parseFloat(filter.precio_producto_min);
+    const priceMax = parseFloat(filter.precio_producto_max);
+    const price = parseFloat(producto.precio_producto || 0);
+
+    const priceMinMatch = isNaN(priceMin) || price >= priceMin;
+    const priceMaxMatch = isNaN(priceMax) || price <= priceMax;
+
+    return nameMatch && categoryMatch && priceMinMatch && priceMaxMatch;
+  });
+
+  const productosOrdenados = [...productosFiltrados].sort((a, b) => {
+    return sortOrder === "asc"
+      ? parseFloat(a.precio_producto) - parseFloat(b.precio_producto)
+      : parseFloat(b.precio_producto) - parseFloat(a.precio_producto);
+  })
+
+
+  return (
+    <div className="busq">
+      <h2>Productos</h2>
+      <form className="formbus">
+        <input
+          type="text"
+          placeholder="Buscar por nombre"
+          value={filter.nom_producto}
+          onChange={(e) =>
+            setFilter({ ...filter, nom_producto: e.target.value })
+          }
+        />
+        <input
+          type="text"
+          placeholder="Precio mínimo"
+          value={filter.precio_producto_min}
+          onChange={(e) =>
+            setFilter({ ...filter, precio_producto_min: e.target.value })
+          }
+        />
+        <input
+          type="text"
+          placeholder="Precio máximo"
+          value={filter.precio_producto_max}
+          onChange={(e) =>
+            setFilter({ ...filter, precio_producto_max: e.target.value })
+          }
+        />
+        <input
+          type="text"
+          placeholder="Buscar por categoría"
+          value={filter.categorias}
+          onChange={(e) =>
+            setFilter({ ...filter, categorias: e.target.value })
+          }
+        />
+        <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+          <option value="asc">Precio Ascendente</option>
+          <option value="desc">Precio Descendente</option>
+        </select>
+      </form>
+      <div className="product-containerB">
+        {productosOrdenados.map((producto) => (
+          <CardProducto
+            key={producto.id_productos}
+            producto={producto}
+            addToCart={() => addToCart(producto)}
           />
         ))}
       </div>

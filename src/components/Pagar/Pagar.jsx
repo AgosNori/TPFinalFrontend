@@ -10,7 +10,7 @@ const Pagar = ({ carrito, usuario }) => {
 
   // Calcular el precio total de la compra
   const precioTotal = carrito.reduce((total, producto) => {
-    return total + producto.precio * producto.cantidad;
+    return total + producto.precio_producto * producto.cantidad;
   }, 0);
 
   const handleEnvioADomicilioChange = (event) => {
@@ -30,7 +30,7 @@ const Pagar = ({ carrito, usuario }) => {
     console.log("Detalle de la compra:");
     carrito.forEach((producto) => {
       console.log(
-        `Producto: ${producto.nombre}, Cantidad: ${producto.cantidad}, Precio Unitario: ${producto.precio}`
+        `Producto: ${producto.nom_producto}, Cantidad: ${producto.cantidad}, Precio Unitario: ${producto.precio_producto}`
       );
     });
     console.log(`Precio Total: ${precioTotal}`);
@@ -46,10 +46,10 @@ const Pagar = ({ carrito, usuario }) => {
       <h2>Resumen de la Compra</h2>
       <div>
         {carrito.map((producto) => (
-          <div key={producto.id}>
-            <p>Producto: {producto.nombre}</p>
+          <div key={producto.id_productos}>
+            <p>Producto: {producto.nom_producto}</p>
             <p>Cantidad: {producto.cantidad}</p>
-            <p>Precio Unitario: {producto.precio}</p>
+            <p>Precio Unitario: {producto.precio_producto}</p>
           </div>
         ))}
         <p>Precio Total: {precioTotal}</p>

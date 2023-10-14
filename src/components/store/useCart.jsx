@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
+/* hook para que permanezcan los productos  */
 const useCart = create(
   
   persist(

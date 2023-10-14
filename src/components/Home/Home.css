@@ -1,0 +1,31 @@
+/* Inicio.css */
+
+.container {
+    background-image: url('https://github.com/AgosNori/NoriegaAgostina--Goddesses/blob/master/DesarrolloVistas/imagenes/banner4.jpg?raw=true');
+margin-bottom: 0;
+    background-repeat: no-repeat;
+    height: 460px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.opaco {
+    margin: 0 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Fondo opaco */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.titulo {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.descripcion {
+    font-size: 18px;
+}

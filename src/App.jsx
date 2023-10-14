@@ -74,6 +74,8 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Usuarios from './components/Usuarios/Usuarios'
 import Footer from './components/layouts/Footer'
+import Home from "./components/Home/Home";
+
 function App() {
   const [cart, setCart] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -94,14 +96,14 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<ProductosListar />}
+          element={<Home />}
         />
-      
-          <Route
-            path="/usuarios"
-            element={<Usuarios />}
-          />
-        
+
+        <Route
+          path="/usuarios"
+          element={<Usuarios />}
+        />
+
         <Route
           path="/productos"
           element={<ProductosListar addToCart={addToCart} />}
@@ -123,7 +125,8 @@ function App() {
           element={<Register />}
         />
       </Routes>
-      <Footer/>
+    
+      <Footer />
     </BrowserRouter>
   );
 }
