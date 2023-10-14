@@ -69,14 +69,17 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from './components/layouts/Navbar'
 /*import NuevoProductoForm from './components/UserAdmin/nuevoProducto';*/
 import ProductosListar from "./components/ProductosListar/ProductosListar";
+
 import Carrito from "./components/Carrito/Carrito";
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Usuarios from './components/Usuarios/Usuarios'
 import Footer from './components/layouts/Footer'
 import Home from "./components/Home/Home";
+import RealizarCompra from "./components/Pagar/Pagar";
 
-function App() {
+
+function App(pedido) {
   const [cart, setCart] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -113,8 +116,8 @@ function App() {
           element={<Carrito cart={cart} />}
         />
         <Route
-          path="/orden-compra"
-          element={<Carrito cart={cart} />}
+          path="/pagar"
+          element={<RealizarCompra carrito={cart} onCompraExitosa={() => {pedido}} />}
         />
         <Route
           path="/login"

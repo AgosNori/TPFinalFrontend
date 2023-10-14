@@ -263,6 +263,7 @@ import { useState, useEffect } from "react";
 import useCart from "../store/useCart";
 import './Carrito.css';
 import { Link } from 'react-router-dom';
+import RealizarCompra from "../Pagar/Pagar";
 
 const Carrito = () => {
   const { cart, setCart, clearCart } = useCart();
@@ -368,7 +369,7 @@ const Carrito = () => {
       </ul>
       <p>Total: ${total}</p>
       <Link to="/pagar">
-        <button>Ir a Pagar</button>
+        <button>{RealizarCompra} Comprar</button>
       </Link>
       <button onClick={clearCart}>Limpiar Carrito</button>
     </div>

@@ -1,121 +1,326 @@
-import { useState } from "react";
-import PropTypes from "prop-types"; // Importa PropTypes
-const Pagar = ({ carrito, usuario }) => {
-  const [envioADomicilio, setEnvioADomicilio] = useState(false);
-  const [datosEnvio, setDatosEnvio] = useState({
-    direccion: "",
-    ciudad: "",
-    codigoPostal: "",
-  });
+/*import PropTypes from 'prop-types';
+import { useState } from 'react';
 
-  // Calcular el precio total de la compra
-  const precioTotal = carrito.reduce((total, producto) => {
-    return total + producto.precio_producto * producto.cantidad;
+function RealizarCompra({ carrito, onCompraExitosa }) {
+  const [formaPago, setFormaPago] = useState('tarjeta'); // Forma de pago predeterminada
+
+  const handleFormaPagoChange = (e) => {
+    setFormaPago(e.target.value);
+  };
+
+  // Calcular el total de la compra
+  const total = carrito.reduce((total, producto) => {
+    return total + producto.precio * producto.cantidad;
   }, 0);
 
-  const handleEnvioADomicilioChange = (event) => {
-    setEnvioADomicilio(event.target.checked);
+  const realizarPedido = () => {
+    // 1. Obtener los detalles del pedido
+    const pedido = {
+      carrito,
+      formaPago,
+      total,
+    };
+  
+    // 2. Llamar a una función para procesar el pedido (simulada)
+    procesarPedido(pedido)
+      .then((resultado) => {
+        if (resultado === 'exitoso') {
+        
+          console.log('Pedido procesado con éxito');
+          
+         
+          onCompraExitosa();
+        } else {
+        
+          console.error('Error al procesar el pedido');
+        }
+      })
+      .catch((error) => {
+     
+        console.error('Error de procesamiento:', error);
+      });
   };
+  
 
-  const handleDatosEnvioChange = (event) => {
-    const { name, value } = event.target;
-    setDatosEnvio({ ...datosEnvio, [name]: value });
-  };
-
-  const realizarPago = () => {
-    // Aquí puedes implementar la lógica de procesamiento de pagos
-    // Puedes utilizar una pasarela de pago, enviar datos a un servidor, etc.
-    // En este ejemplo, simplemente mostramos una confirmación en la consola
-    console.log("Pago realizado con éxito");
-    console.log("Detalle de la compra:");
-    carrito.forEach((producto) => {
-      console.log(
-        `Producto: ${producto.nom_producto}, Cantidad: ${producto.cantidad}, Precio Unitario: ${producto.precio_producto}`
-      );
+  function procesarPedido(pedido) {
+    return new Promise((resolve, reject) => {
+      // Simulamos un retardo de 2 segundos para procesar el pedido
+      setTimeout(() => {
+        const exitoso = Math.random() < 0.8; // Simulamos una tasa de éxito del 80%
+        if (exitoso) {
+          resolve('exitoso');
+        } else {
+          reject('error');
+        }
+      }, 2000);
     });
-    console.log(`Precio Total: ${precioTotal}`);
-    console.log("Datos de contacto del usuario:", usuario);
-    if (envioADomicilio) {
-      console.log("Opción de envío a domicilio habilitada");
-      console.log("Datos de envío del usuario:", datosEnvio);
-    }
+  }
+
+  return (
+    <div>
+      <h2>Resumen de Compra</h2>
+      <ul>
+        {carrito.map((producto) => (
+          <li key={producto.id_productos}>
+            {producto.nom_producto} - Cantidad: {producto.cantidad} - Precio: ${producto.precio_producto}
+          </li>
+        ))}
+      </ul>
+      <p>Total: ${total}</p>
+
+      <h3>Selecciona una Forma de Pago</h3>
+      <div>
+        <label>
+          <input
+            type="radio"
+            value="tarjeta"
+            checked={formaPago === 'tarjeta'}
+            onChange={handleFormaPagoChange}
+          />
+          Tarjeta de Crédito
+        </label>
+      </div>
+      <div>
+        <label>
+          <input
+            type="radio"
+            value="paypal"
+            checked={formaPago === 'paypal'}
+            onChange={handleFormaPagoChange}
+          />
+          PayPal
+        </label>
+      </div>
+
+      <button onClick={realizarPedido}>Realizar Compra</button>
+    </div>
+  );
+}
+
+RealizarCompra.propTypes = {
+  carrito: PropTypes.array.isRequired,
+  onCompraExitosa: PropTypes.func.isRequired,
+};
+
+export default RealizarCompra;
+*/
+/*
+import { useState } from 'react';
+import PropTypes from 'prop-types';
+function RealizarCompra({ carrito, onCompraExitosa }) {
+  const [formaPago, setFormaPago] = useState('tarjeta'); // Forma de pago predeterminada
+
+  const handleFormaPagoChange = (e) => {
+    setFormaPago(e.target.value);
+  };
+
+  const total = carrito.reduce((total, producto) => {
+    return total + producto.precio * producto.cantidad;
+  }, 0);
+
+  const realizarPedido = () => {
+    // Obtener los detalles del pedido
+    const pedido = {
+      carrito,
+      formaPago,
+      total,
+    };
+
+    // Simulación de una solicitud al servidor para procesar el pedido
+    procesarPedido(pedido)
+      .then((resultado) => {
+        if (resultado === 'exitoso') {
+          // El pedido se procesó con éxito
+          mostrarMensajeExito();
+          onCompraExitosa(); // Llama a la función de compra exitosa
+        } else {
+          mostrarMensajeError(resultado);
+        }
+      })
+      .catch((error) => {
+        console.error('Error al procesar el pedido:', error);
+        mostrarMensajeError('Error de red');
+      });
+  };
+
+  const procesarPedido = (pedido) => {
+    return new Promise((resolve, reject) => {
+      // Simulación de procesamiento con un retardo de 2 segundos
+      setTimeout(() => {
+        const exitoso = Math.random() < 0.8; // Simulación de una tasa de éxito del 80%
+        if (exitoso) {
+          resolve('exitoso');
+        } else {
+          resolve('Error en el procesamiento del pedido');
+        }
+      }, 2000);
+    });
+  };
+
+  const mostrarMensajeExito = () => {
+    alert('Compra exitosa. Gracias por tu pedido.');
+  };
+
+  const mostrarMensajeError = (error) => {
+    alert('Error en la compra: ' + error);
   };
 
   return (
     <div>
-      <h2>Resumen de la Compra</h2>
-      <div>
+      <h2>Resumen de Compra</h2>
+
+      <ul>
         {carrito.map((producto) => (
-          <div key={producto.id_productos}>
-            <p>Producto: {producto.nom_producto}</p>
-            <p>Cantidad: {producto.cantidad}</p>
-            <p>Precio Unitario: {producto.precio_producto}</p>
-          </div>
+          <li key={producto.id_productos}>
+            {producto.nom_producto} - Cantidad: {producto.cantidad} - Precio: ${producto.precio_producto}
+          </li>
         ))}
-        <p>Precio Total: {precioTotal}</p>
+      </ul>
+      <p>Total: ${total}</p>
+
+      <h3>Selecciona una Forma de Pago</h3>
+      <div>
+        <label>
+          <input
+            type="radio"
+            value="paypal"
+            checked={formaPago === 'paypal'}
+            onChange={handleFormaPagoChange}
+          />
+          PayPal
+        </label>
       </div>
-      <h2>Datos de Contacto</h2>
-      <p>Nombre: {usuario.nombre}</p>
-      <p>Email: {usuario.email}</p>
-      <h2>Opciones de Envío</h2>
-      <label>
-        <input
-          type="checkbox"
-          checked={envioADomicilio}
-          onChange={handleEnvioADomicilioChange}
-        />
-        Enviar a Domicilio
-      </label>
-      {envioADomicilio && (
-        <div>
-          <h2>Datos de Envío</h2>
-          <label>
-            Dirección:
-            <input
-              type="text"
-              name="direccion"
-              value={datosEnvio.direccion}
-              onChange={handleDatosEnvioChange}
-            />
-          </label>
-          <label>
-            Ciudad:
-            <input
-              type="text"
-              name="ciudad"
-              value={datosEnvio.ciudad}
-              onChange={handleDatosEnvioChange}
-            />
-          </label>
-          <label>
-            Código Postal:
-            <input
-              type="text"
-              name="codigoPostal"
-              value={datosEnvio.codigoPostal}
-              onChange={handleDatosEnvioChange}
-            />
-          </label>
-        </div>
-      )}
-      <button onClick={realizarPago}>Realizar Pago</button>
+      <div>
+        <label>
+          <input
+            type="radio"
+            value="tarjeta"
+            checked={formaPago === 'tarjeta'}
+            onChange={handleFormaPagoChange}
+          />
+          Tarjeta de Crédito
+        </label>
+      </div>
+
+      <button onClick={realizarPedido}>Realizar Compra</button>
     </div>
   );
+}
+RealizarCompra.propTypes = {
+  carrito: PropTypes.array.isRequired,
+  onCompraExitosa: PropTypes.func.isRequired,
 };
-Pagar.propTypes = {
-    carrito: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        nombre: PropTypes.string.isRequired,
-        cantidad: PropTypes.number.isRequired,
-        precio: PropTypes.number.isRequired,
-      })
-    ).isRequired,
-    usuario: PropTypes.shape({
-      nombre: PropTypes.string.isRequired,
-      email: PropTypes.string.isRequired,
-    }).isRequired,
+export default RealizarCompra;
+*/
+import { useState } from 'react';
+import PropTypes from 'prop-types';
+import './Pagar.css';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+function RealizarCompra({ carrito, onCompraExitosa }) {
+  const [formaPago, setFormaPago] = useState('tarjeta'); // Forma de pago predeterminada
+  const Navigate = useNavigate()
+  const handleFormaPagoChange = (e) => {
+    setFormaPago(e.target.value);
   };
-  
 
-export default Pagar;
+  const total = carrito.reduce((total, producto) => {
+    return total + producto.precio_producto * producto.cantidad;
+  }, 0);
+
+  const realizarPedido = () => {
+    // Obtener los detalles del pedido
+    const pedido = {
+      carrito,
+      formaPago,
+      total,
+    };
+
+    // Simulación de una solicitud al servidor para procesar el pedido
+    procesarPedido(pedido)
+      .then((resultado) => {
+        if (resultado === 'exitoso') {
+          // El pedido se procesó con éxito
+          mostrarMensajeExito();
+          onCompraExitosa(); 
+          <Navigate to="/carrito"/>
+        } else {
+          mostrarMensajeError(resultado);
+
+        }
+      })
+      .catch((error) => {
+        console.error('Error al procesar el pedido:', error);
+        mostrarMensajeError('Error de red');
+      });
+  };
+
+  const procesarPedido = (pedido) => {
+    return new Promise((resolve, reject) => {
+      // Simulación de procesamiento con un retardo de 2 segundos
+      setTimeout(() => {
+        const exitoso = Math.random() < 0.8; 
+        if (exitoso) {
+          resolve('exitoso');
+        } else {
+          resolve('Error en el procesamiento del pedido');
+        }
+      }, 2000);
+    });
+  };
+
+  const mostrarMensajeExito = () => {
+    Swal.fire('¡Compra exitosa!', 'Gracias por tu pedido.', 'success');
+ 
+  };
+
+  const mostrarMensajeError = (error) => {
+    Swal.fire('Error en la compra', error, 'error');
+  };
+
+  return (
+    <div className='realizar-compra-container'>
+    <h2>Resumen de Compra</h2>
+
+    <ul className='listPagar'>
+      {carrito.map((producto) => (
+        <li className='listaPagar' key={producto.id_productos}>
+          {producto.nom_producto} - Cantidad: {producto.cantidad} - Precio: ${producto.precio_producto}
+        </li>
+      ))}
+    </ul>
+    <p>Total: ${total}</p>
+
+    <h3>Selecciona una Forma de Pago</h3>
+    <div className='forma-pagar-option'>
+      <label>
+        <input
+          type="radio"
+          value="paypal"
+          checked={formaPago === 'paypal'}
+          onChange={handleFormaPagoChange}
+        />
+        PayPal
+      </label>
+    </div>
+    <div>
+      <label>
+        <input
+          type="radio"
+          value="tarjeta"
+          checked={formaPago === 'tarjeta'}
+          onChange={handleFormaPagoChange}
+        />
+        Tarjeta de Crédito
+      </label>
+    </div>
+
+    <button className='realizar-compra-button' onClick={realizarPedido}>Realizar Compra</button>
+  </div>
+  );
+}
+RealizarCompra.propTypes = {
+  carrito: PropTypes.array.isRequired,
+  onCompraExitosa: PropTypes.func.isRequired,
+};
+export default RealizarCompra;
