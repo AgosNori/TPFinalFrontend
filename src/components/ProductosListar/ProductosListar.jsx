@@ -7,9 +7,9 @@ function ProductosListar() {
   const [productos, setProductos] = useState([]);
   const [filter, setFilter] = useState({ nom_producto: '', precio_producto_min: '', precio_producto_max: '', categorias: '' });
   const [sortOrder, setSortOrder] = useState('asc');
-
+  const {cart,setCart}=useCart();
   // Obtén la función addToCart desde useCart
-  const { addToCart } = useCart();
+  //const { addToCart } = useCart();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,6 +39,18 @@ function ProductosListar() {
 
     fetchData();
   }, []);
+
+  const addToCart=(product)=>{
+    const updatedCart=[...cart];
+    const existingProduct = updatedCart.find((item)=>item.id_productos=== product.id_productos);
+    if(existingProduct){
+      existingProduct.cantidad++;
+    }else{
+      product.cantidad=1;
+      updatedCart.push(product);
+    }
+    setCart(updatedCart);
+  }
   const productosFiltrados = productos.filter((producto) => {
     const nameMatch = (producto.nom_producto || "")
       .toLowerCase()
