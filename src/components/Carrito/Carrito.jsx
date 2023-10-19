@@ -369,8 +369,9 @@ const Carrito = () => {
       </ul>
       <p>Total: ${total}</p>
       <Link to="/pagar">
-        <button>{RealizarCompra} Comprar</button>
+        <button onClick={RealizarCompra}>Comprar</button>
       </Link>
+      <br />
       <button onClick={clearCart}>Limpiar Carrito</button>
     </div>
   );

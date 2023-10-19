@@ -1,63 +1,86 @@
-/* Estilos para el contenedor principal */
-.realizar-compra-container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Estilos para la lista de productos */
-  .listPagar {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .listaPagar {
-    margin-bottom: 10px;
-    font-size: 16px;
-  }
-  
-  /* Estilos para el resumen total */
-  p {
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  /* Estilos para las opciones de forma de pago */
-  .forma-pago-options {
-    display: flex;
-    flex-direction: column;
-    margin: 10px 0;
-  }
-  
-  /* Estilos para las etiquetas de radio */
-  label {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    font-size: 16px;
-  }
-  
-  input[type="radio"] {
-    margin-right: 5px;
-  }
-  
-  /* Estilos para el botón de compra */
-  .realizar-compra-button {
-    background-color: #007BFF;
-    color: #fff;
-    font-size: 18px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .realizar-compra-button:hover {
-    background-color: #0056b3;
-  }
-  
+/* Pagar.css */
+
+.confirmacion-compra {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.confirmacion-compra h1 {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.confirmacion-compra h2 {
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.producto-info {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.producto-info p {
+  margin: 5px 0;
+}
+
+.precio-total {
+  font-size: 18px;
+  margin-top: 20px;
+  text-align: right;
+}
+
+.datos-usuario {
+  margin-top: 20px;
+}
+
+.datos-usuario h2 {
+  font-size: 20px;
+}
+
+.datos-usuario p {
+  margin: 5px 0;
+}
+
+.datos-envio {
+  margin-top: 20px;
+}
+
+.datos-envio h2 {
+  font-size: 20px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.realizar-pedido {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+/* Hover effect for the button */
+.realizar-pedido:hover {
+  background-color: #0056b3;
+}
